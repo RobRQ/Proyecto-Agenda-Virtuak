@@ -1,0 +1,404 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: black;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+}
+
+#Contenedor-barranav {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    padding: 5px;
+    font-size: 65px;
+    background: linear-gradient(to bottom, #73dc3f, #4fb71f, #3d9a16, #307615);
+    border: solid 3px #3d9a16;
+}
+
+#Contenedor-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    background: url(/imagenes/fondo_finanzas.jpeg) no-repeat center center/ cover;
+}
+
+#Contenedor-principal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+    width: 90%;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+
+.disponibilidad {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    height: 300px;
+    width: 49.8%;
+    min-width: 733px;
+    margin: 1px;
+    padding: 25px;
+    border: 5px double black;
+    background-color: #73dc3f7a;
+}
+
+.disponibilidad div {
+    padding: 5px;
+    border: 2px solid #97ea6c;
+    border-radius: 10%;
+    background-color: #dff9ce;
+}
+
+.disponibilidad div.efectivo {
+    display: flex;
+    flex-direction: column;
+    width: 24%;
+    margin: 3px;
+    padding: 0;
+}
+
+.disponibilidad div.banco {
+    display: flex;
+    flex-direction: column;
+    width: 24%;
+    margin: 3px;
+    padding: 0;
+}
+
+.disponibilidad div.total {
+    display: flex;
+    flex-direction: column;
+    width: 24%;
+    margin: 3px;
+    padding: 0;
+}
+
+.disponibilidad div.disponible {
+    display: flex;
+    flex-direction: column;
+    width: 28%;
+    margin: 3px;
+    padding: 0;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+
+.Lista-Ingresos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 300px;
+    width: 49.8%;
+    min-width: 733px;
+    margin: 1px;
+    border: 5px double black;
+    background-color: rgba(0, 128, 0, 0.5);
+}
+
+.Lista-Ingresos h1 {
+    text-align: center;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+#Contenedor-Ingresos{
+    overflow: auto;
+    width: 95%;
+}
+
+.Ingreso {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 5px;
+}
+
+.Ingreso input.descripcion {
+    width: 35%;
+}
+
+.Ingreso select.categoria {
+    width: 20%;
+}
+
+.Ingreso input.cantidad {
+    text-align: center;
+    width: 15%;
+}
+
+.Ingreso input.fecha {
+    width: 20%;
+}
+
+.Ingreso h1 {
+    text-align: center;
+    height: 100%;
+    width: 10%;
+    padding: 5px;
+    margin: 0;
+    font-size: 25px;
+}
+
+.Ingreso div.más-menos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+
+.Lista-Gastos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 300px;
+    width: 49.8%;
+    min-width: 733px;
+    margin: 1px;
+    border: 5px double black;
+    background-color: rgba(220, 20, 60, 0.5);
+}
+
+.Lista-Gastos h1{
+    text-align: center;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+#Contenedor-Gastos {
+    overflow: auto;
+    width: 95%;
+}
+
+.Gasto {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 5px;
+}
+
+.Gasto input.descripcion {
+    width: 45%;
+}
+
+.Gasto select.categoria {
+    width: 20%;
+}
+
+.Gasto input.cantidad {
+    text-align: center;
+    width: 15%;
+}
+
+.Gasto input.fecha {
+    width: 20%;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+
+.Suscripciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 300px;
+    width: 49.8%;
+    min-width: 733px;
+    margin: 1px;
+    border: 5px double black;
+    background-color: rgba(128, 0, 128, 0.5);
+}
+
+.Suscripciones h1{
+    text-align: center;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+#Contenedor-Suscripciones {
+    overflow: auto;
+    width: 95%;
+}
+
+.Suscripcion {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 5px;
+}
+
+.Suscripcion input.descripcion {
+    width: 40%;
+}
+
+.Suscripcion select.categoria {
+    width: 20%;
+}
+
+.Suscripcion input.cantidad {
+    text-align: center;
+    width: 15%;
+}
+
+.Suscripcion input.periodo {
+    text-align: center;
+    width: 15%;
+}
+
+.Suscripcion h1 {
+    text-align: center;
+    height: 100%;
+    width: 10%;
+    padding: 5px;
+    margin: 0;
+    font-size: 25px;
+}
+
+.Suscripcion div.más-menos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.Gastos-Acumulados {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 300px;
+    width: 49.8%;
+    min-width: 733px;
+    margin: 1px;
+    border: 5px double black;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.Gastos-Acumulados h1 {
+    text-align: center;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+.referencia {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    margin-top: 3px;
+    border: 1px solid black;
+}
+
+.referencia p {
+    text-align: center;
+    width: 33.33%;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #d42a5a77;
+}
+
+#Contenedor-GastoAC {
+    overflow: auto;
+    width: 90%;
+    margin: 10px;
+}
+
+.GastoAC{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    align-items: center;
+    margin: 4px 0 4px 0;
+}
+
+.GastoAC h1 {
+    text-align: center;
+    width: 33.33%;
+    padding: 0;
+    font-size: 25px;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 49.8%;
+    min-width: 733px;
+    margin: 1px;
+    padding: 25px;
+    border: 5px double black;
+    background-color: rgba(0, 255, 255, 0.5);
+}
+
+.extra img{
+    height: 325px;
+    width: 325px
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.add {
+    min-height: 40px;
+    width: 45px;
+    margin: 5px;
+    border-radius: 25%;
+    color: black;
+    border: black;
+}
+
+.less {
+    min-height: 40px;
+    width: 45px;
+    border-radius: 25%;
+    color: black;
+    border: black;
+}
+
+.modify {
+    min-height: 40px;
+    width: 45px;
+    margin: 5px;
+    border-radius: 25%;
+    color: black;
+    border: black;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+.oculto {
+    display: none;
+}
