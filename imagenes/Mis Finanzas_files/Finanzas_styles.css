@@ -99,13 +99,14 @@
 
 .Ingreso {
     display: flex;
+    height: 50px;
     width: 100%;
     margin-bottom: 4px;
     padding: 5px;
 }
 
 .Ingreso input.descripcion {
-    width: 40%;
+    width: 35%;
     margin-right: 3px;
 }
 
@@ -124,63 +125,24 @@
     width: 20%;
 }
 
-.Ingreso p{
-    text-align: center;
-    height: 40px;
-    font-size: 20px;
-    margin: 0;
-    padding: 3px;
-}
-
-.Ingreso p.descripcion {
-    width: 350px;
-    min-width: 270px;
-    margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
-}
-
-.Ingreso p.categoria {
-    min-width: 100px;
-    margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
-}
-
-.Ingreso p.cantidad {
-    min-width: 100px;
-    margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
-}
-
-.Ingreso p.fecha {
-    /* width: 20%; */
-    min-width: 120px;
-    margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
-}
-
+/* ****************dejar esto para cuando el ingreso ya este en la BD */
 .Ingreso h1 {
     text-align: center;
-    height: 40px;
-    min-width: 50px;
-    padding: 3px;
+    height: 100%;
+    width: 10%;
+    padding: 5px;
     margin: 0;
     font-size: 25px;
-    margin-right: 2px;
-    border: 1px solid black;
-    background-color: white;
 }
 
 .Ingreso div.más-menos {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     cursor: pointer;
-    min-width: 20px;
-    font-size: 11.7px;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
 }
 
     /* Seccion de Gastos */
@@ -401,6 +363,7 @@
     border-radius: 50%;
     color: black;
     border: black;
+    pointer-events: none;
 }
 
 .less {
@@ -412,18 +375,16 @@
 }
 
 .modify {
-    min-height: 40px;
+    min-height: 30px;
     width: 40px;
-    border-radius: 50%;
+    margin: 10px;
+    border-radius: 25%;
     color: black;
     border: black;
+    transform: scale(1.4);
 }
 
     /* ocultar información */
 .oculto {
     display: none;
-}
-
-.no-click{
-    pointer-events: none;
 }

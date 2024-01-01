@@ -14,9 +14,6 @@ function formatoDosDigitos(numero) {
   return numero < 10 ? "0" + numero : numero;
 }
 
-// Obtener la fecha actual
-var fechaActual = new Date();
-
 // Función para mostrar la fecha en el elemento con id "Fecha"
 function mostrarFecha() {
   var fechaFormateada = `${formatoDosDigitos(fechaActual.getDate())}

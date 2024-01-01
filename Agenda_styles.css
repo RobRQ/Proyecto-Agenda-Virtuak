@@ -1,19 +1,15 @@
-* {
-    padding: 0;
-    margin: 0;
+/* modifica colores de la barra de navegación */
+#contenedor-barranav {
+    background: linear-gradient(to bottom, #015af4, #0772ff, #1f92ff, #49b6ff);
+    border: solid 3px #1f92ff;
 }
 
-a {
-    color: black;
+/* modifica imagen de background */
+#contenedor-main {
+    background: url(/imagenes/fondo_agenda.jpg) no-repeat center center/ cover;
 }
 
-body {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    min-height: 100vh;
-    width: 100%;
-}
+/* ---------------------------------------------------------------------------------------- */
 
 input {
     width: 90%;
@@ -32,29 +28,13 @@ select {
     text-align: center;
 }
 
-#contenedor-barranav {
-    display: flex;
-    flex-direction: column;
-    width: 80px;
-    padding: 5px;
-    font-size: 65px;
-    background: linear-gradient(to bottom, #015af4, #0772ff, #1f92ff,#49b6ff);
-    border: solid 3px #1f92ff;
-}
-
-#contenedor-main {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    background: url(/imagenes/fondo_agenda.jpg) no-repeat center center/ cover;
-}
-
+    /* Seccion de Ingreso de Tareas */
 #ingresar-tarea {
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 90%;
+    min-width: 880px;
     margin-bottom: 10px;
 }
 
@@ -86,6 +66,7 @@ select {
     cursor: pointer;
 }
 
+    /* Seccion de Tareas */
 #Tarea {
     display: flex;
     flex-direction: row;
@@ -119,20 +100,26 @@ select {
     width: 150px;
 }
 
-.prioridad.modificar {
-    width: 200px;
-    margin: 2px;
-    font-size: 20px;
-    border: 1px solid #2896ff;
-    background-color: #d7eeff;
-}
-
 .casilla-descripcion {
     text-align: justify;
     border-width: 0 3px 0 3px;
     border-style: solid;
     border-color: black;
     width: 100%;
+}
+
+.casilla-fecha {
+    text-align: center;
+    width: 200px;
+}
+
+    /* Elementos para Modificar Tareas */
+.prioridad.modificar {
+    width: 200px;
+    margin: 2px;
+    font-size: 20px;
+    border: 1px solid #2896ff;
+    background-color: #d7eeff;
 }
 
 .descripcion.modificar {
@@ -143,11 +130,6 @@ select {
     background-color: #d7eeff;
 }
 
-.casilla-fecha {
-    text-align: center;
-    width: 200px;
-}
-
 .fecha.modificar {
     width: 200px;
     margin: 2px;
@@ -156,6 +138,7 @@ select {
     background-color: #d7eeff;
 }
 
+    /* Botones */
 .boton-modificar {
     height: 25px;
     margin: 1vw;
@@ -186,6 +169,7 @@ select {
     background-color: #2896ff;
 }
 
+    /* ocultar información */
 .oculto {
     display: none;
 }

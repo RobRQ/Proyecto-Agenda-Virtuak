@@ -1,0 +1,115 @@
+// Conexion con la BD en SupaBase
+import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
+
+const supabaseUrl = "https://qmpzbehmfbbtrapbgdby.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtcHpiZWhtZmJidHJhcGJnZGJ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwMzE2MDczMSwiZXhwIjoyMDE4NzM2NzMxfQ.Ql3vNr_ppETAIbnUc2vMOlnibUb_u9ypVfYB0d0MgE4";
+
+// Crea una instancia del cliente Supabase
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// -------------------------------------------------------------------------------------------
+
+// Asignacion de elementos HTML
+let botonAgregarIngreso = document.querySelector('.Lista-Ingresos .add');
+let botonAgregarGasto = document.querySelector('.Lista-Gastos .add');
+let botonAgregarSuscripcion = document.querySelector('.Suscripciones .add');
+
+// 
+function agregarIngreso(){
+    let contenedorIngreso = document.getElementById('Contenedor-Ingresos');
+    console.log(contenedorIngreso);
+
+    let contenedor = document.createElement('div');
+    contenedor.classList.add('Ingreso');
+    contenedorIngreso.appendChild(contenedor);
+
+    let idIngreso = document.createElement('p');
+    idIngreso.classList.add('oculto');
+    idIngreso.innerText = 1; //agregar id de la BD
+    contenedor.appendChild(idIngreso);
+
+
+
+    let butonCheck = document.createElement('button');
+    butonCheck.classList.add('btn','btn-outline-success');
+    butonCheck.addEventListener('click',function(event){
+        sendIngreso(event);
+    })
+    contenedor.appendChild(butonCheck);
+
+
+
+    let iconLess = document.createElement('i');
+    iconLess.classList.add('bi','bi-send-fill');
+    butonCheck.appendChild(iconLess);
+
+    let descripcion = document.createElement('input');
+    descripcion.classList.add('descripcion');
+    descripcion.placeholder = 'Descripcion';
+    contenedor.appendChild(descripcion);
+
+    let categoria = document.createElement('select'); //agregar mas categorias
+    categoria.classList.add('categoria');
+    contenedor.appendChild(categoria);
+
+    let categoria_0 = document.createElement('option');
+    categoria_0.appendChild(document.createTextNode('Categoria'));
+    categoria_0.value="";
+    categoria_0.disabled=true;
+    categoria_0.selected=true;
+    categoria_0.hidden=true;
+    categoria.appendChild(categoria_0);
+
+    let cantidad = document.createElement('input');
+    cantidad.classList.add('cantidad');
+    cantidad.placeholder = 'Cantidad';
+    contenedor.appendChild(cantidad);
+
+    var fecha = document.createElement('input');
+    fecha.classList.add('fecha');
+    fecha.id = 'fecha';
+    fecha.type = 'date';
+    fecha.name = 'fecha';
+    fecha.min = setMinDate();
+    contenedor.appendChild(fecha);
+
+}
+
+// function agregarGasto(){
+//     let contenedorIngreso = document.getElementById('Contenedor-Gastos');
+//     console.log(contenedorIngreso);
+// }
+
+// function agregarSuscripcion(){
+//     let contenedorIngreso = document.getElementById('Contenedor-Suscripciones');
+//     console.log(contenedorIngreso);
+// }
+
+botonAgregarIngreso.addEventListener('click',function(){
+    agregarIngreso();
+});
+
+// botonAgregarGasto.addEventListener('click',function(){
+//     agregarGasto();
+// });
+
+// botonAgregarSuscripcion.addEventListener('click',function(){
+//     agregarSuscripcion();
+// });
+
+function sendIngreso(e){
+    let tmp = e.target.parentNode;
+    console.log(tmp);
+}
+
+// delimita la fecha limite el dia actual
+function setMinDate() {
+    // Obtén la fecha actual en la zona horaria local
+    const today = new Date();
+
+    // Formatea la fecha como YYYY-MM-DD
+    const formattedDate = today.toISOString().split('T')[0];
+
+    // Establece el valor mínimo del input de fecha
+    return formattedDate;
+}

@@ -1,11 +1,13 @@
+// Conexion con la BD en SupaBase
 import { createClient } from "https://cdn.skypack.dev/@supabase/supabase-js";
 
 const supabaseUrl = "https://qmpzbehmfbbtrapbgdby.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtcHpiZWhtZmJidHJhcGJnZGJ5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwMzE2MDczMSwiZXhwIjoyMDE4NzM2NzMxfQ.Ql3vNr_ppETAIbnUc2vMOlnibUb_u9ypVfYB0d0MgE4";
-      
+
 // Crea una instancia del cliente Supabase
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Recuperacion de las Tareas desde la BD
 supabase
   .from('Tareas')
   .select('id, fecha_creacion, prioridad, descripcion, fecha, estado')
@@ -16,15 +18,14 @@ supabase
     });
 });
 
-// -------------------------------------------------------------------------------------------
-
+// Asignacion de elementos HTML
 const botonIngresar = document.querySelector('.boton-ingresar');
-
 const contenedorTareas = document.getElementById('contenedor-tareas');
 const inputPrioridad = document.querySelector('.prioridad');
 const inputDescripcion = document.querySelector('.descripcion');
 const inputFecha = document.querySelector('.fecha');
 
+// Funcion para ordenar las tareas por prioridad y extension de la descripcion
 function ordenarTareas(data) {
   const prioridadesOrdenadas = ['Urgente', 'Alta', 'Media', 'Baja'];
   data.sort((a, b) => {
@@ -40,6 +41,7 @@ function ordenarTareas(data) {
   return data;
 }
 
+// Funcion para mostrar las tareas almacenados en la BD
 function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
         let nuevaTarea = document.createElement('div');
         nuevaTarea.id = 'Tarea';
@@ -57,9 +59,9 @@ function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
         botonModificar.classList.add('boton-modificar');
         botonModificar.addEventListener("click", function(event){
             if(this.children[0].classList.contains('bi-pencil-square')){
-                modificarDescripcion(event);
+                modificarTarea(event);
             } else {
-                confirmarNuevaDescripcion(event,idBD);
+                confirmarModificacionTarea(event,idBD);
             }
         });
         datosNuevaTarea.appendChild(botonModificar);
@@ -115,6 +117,7 @@ function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
         }
 }
 
+// Funcion que marca una tarea como completada
 function marcarTarea(idBD,boton,prioridad,descripcion,fecha){
     prioridad.classList.add('completada');
     descripcion.classList.add('completada');
@@ -131,7 +134,7 @@ function marcarTarea(idBD,boton,prioridad,descripcion,fecha){
         });
 }
 
-
+// Funcion que marca una tarea como pendiente
 function desmarcarTarea(idBD,boton,prioridad,descripcion,fecha){
     prioridad.classList.remove('completada');
     descripcion.classList.remove('completada');
@@ -148,7 +151,8 @@ function desmarcarTarea(idBD,boton,prioridad,descripcion,fecha){
         });
 }
 
-function modificarDescripcion(e){
+// Funcion para modificar los elementos de una Tarea
+function modificarTarea(e){
     let contenedor = e.target.parentNode.parentNode;
     let boton = contenedor.children[1];
     boton.children[0].classList.remove('bi-pencil-square');
@@ -177,7 +181,8 @@ function modificarDescripcion(e){
     viejaFecha.replaceWith(casillaFecha);
 }
 
-function confirmarNuevaDescripcion(e,idBD){
+// Funcion que actualiza los datos de una tarea en la BD
+function confirmarModificacionTarea(e,idBD){
     let contenedor = e.target.parentNode.parentNode;
     let boton = contenedor.children[1];
     boton.children[0].classList.remove('bi-check-lg');
@@ -213,8 +218,7 @@ function eliminarTarea(idBD){
         });
 }
 
-//Verifica que una tarea cuenta con toda la información necesaria para ingresarla,
-//si cuenta con la información ingresa la tarea en la tabla 'Tareas' de la BD
+//Verifica que una tarea cuenta con toda la información necesaria para ingresarla, si cuenta con la información ingresa la tarea en la tabla 'Tareas' de la BD
 function agregarTarea(){
     if(inputPrioridad.value && inputDescripcion.value && inputFecha.value){
         

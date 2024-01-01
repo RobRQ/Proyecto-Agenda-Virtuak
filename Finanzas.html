@@ -11,12 +11,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
     />
+    <link rel="stylesheet" href="Estructura.css" />
     <link rel="stylesheet" href="Finanzas_styles.css" />
     <link rel="icon" type="image/png" href="imagenes/Dinero.png" />
     <title>Mis Finanzas</title>
   </head>
   <body>
-    <nav id="Contenedor-barranav">
+    <nav id="contenedor-barranav">
       <a href="Agenda.html" id="Agenda" rel="noopener noreferrer">
         <i class="bi bi-journal"></i>
       </a>
@@ -27,167 +28,42 @@
         <i class="bi bi-calendar4-week"></i>
       </a>
     </nav>
-    <main id="Contenedor-main">
-      <div id="Contenedor-principal">
-        <!--  -->
-        <div class="disponibilidad">
-          <p class="oculto">id_Disponible</p>
-          <div class="efectivo">
+    <main id="contenedor-main">
+      <div class="disponibilidad">
+        <p class="oculto">id_Disponible</p>
+        <div class="efectivo">
             <h1>Efectivo</h1>
             <h2>$4885</h2>
-          </div>
-          <div class="banco">
+        </div>
+        <div class="banco">
             <h1>Banco</h1>
             <h2>$2528</h2>
-          </div>
-          <div class="total">
+        </div>
+        <div class="total">
             <h1>Total</h1>
             <h2>$7423</h1>
-          </div>
-          <div class="disponible">
+        </div>
+        <div class="disponible">
             <h1>Disponible</h1>
             <h2>$7423</h1>
-          </div>
         </div>
-
-        <!--  -->
-        <!--  -->
+      </div>
+      <div id="Contenedor-principal">
 
         <div class="Lista-Ingresos">
-          <h1>Ingresos</h1>
+          <h1>Mis Ingresos</h1>
           <div id="Contenedor-Ingresos">
-            <div class="Ingreso">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
-            </div>
-            <div class="Ingreso">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
-            </div>
-            <div class="Ingreso">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
-            </div>
-            <div class="Ingreso">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
-            </div>
+            
           </div>
           <div>
             <button type="button" class="btn btn-outline-success add">
               <i class="bi bi-plus-circle"></i>
             </button>
-            <button type="button" class="btn btn-outline-success modify">
-              <i class="bi bi-pencil-square"></i>
-            </button>
           </div>
         </div>
 
-        <!--  -->
-        <!--  -->
-
         <div class="Lista-Gastos">
-          <h1>Gastos</h1>
+          <h1>Mis Gastos</h1>
           <div id="Contenedor-Gastos">
             <div class="Gasto">
               <p class="oculto">id_Gasto</p>
@@ -210,69 +86,6 @@
                 min="2024-01-01"
               />
             </div>
-            <div class="Gasto">
-              <p class="oculto">id_Gasto</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Caro</option>
-                <option value="Alta">Medio Caro</option>
-                <option value="Media">Barato</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-            </div>
-            <div class="Gasto">
-              <p class="oculto">id_Gasto</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Caro</option>
-                <option value="Alta">Medio Caro</option>
-                <option value="Media">Barato</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-            </div>
-            <div class="Gasto">
-              <p class="oculto">id_Gasto</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Caro</option>
-                <option value="Alta">Medio Caro</option>
-                <option value="Media">Barato</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input
-                class="fecha"
-                type="date"
-                id="fecha"
-                name="fecha"
-                min="2024-01-01"
-              />
-            </div>
           </div>
           <div>
             <button type="button" class="btn btn-outline-success add">
@@ -283,9 +96,6 @@
             </button>
           </div>
         </div>
-
-        <!--  -->
-        <!--  -->
 
         <div class="Suscripciones">
           <h1>Suscripciones</h1>
@@ -303,7 +113,7 @@
               </select>
               <input class="cantidad" placeholder="Cantidad" />
               <input class="periodo" placeholder="Dias" />
-              <h1>1</h1>
+              <!-- <h1>1</h1>
               <div class="más-menos">
                 <button>
                   <i class="bi bi-caret-up"></i>
@@ -311,76 +121,7 @@
                 <button>
                   <i class="bi bi-caret-down"></i>
                 </button>
-              </div>
-            </div>
-            <div class="Suscripcion">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input class="periodo" placeholder="Dias" />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
-            </div>
-            <div class="Suscripcion">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input class="periodo" placeholder="Dias" />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
-            </div>
-            <div class="Suscripcion">
-              <p class="oculto">id_Ingreso</p>
-              <button type="button" class="btn btn-outline-success less">
-                <i class="bi bi-dash-circle"></i>
-              </button>
-              <input class="descripcion" placeholder="Descripcion" />
-              <select class="categoria">
-                <option value="" disabled selected hidden>Categoria</option>
-                <option value="Urgente">Trabajo</option>
-                <option value="Media">Otro</option>
-              </select>
-              <input class="cantidad" placeholder="Cantidad" />
-              <input class="periodo" placeholder="Dias" />
-              <h1>1</h1>
-              <div class="más-menos">
-                <button>
-                  <i class="bi bi-caret-up"></i>
-                </button>
-                <button>
-                  <i class="bi bi-caret-down"></i>
-                </button>
-              </div>
+              </div> -->
             </div>
           </div>
           <div>
@@ -392,9 +133,6 @@
             </button>
           </div>
         </div>
-
-        <!--  -->
-        <!--  -->
 
         <div class="Gastos-Acumulados">
           <h1>Gastos por Categoria</h1>
@@ -411,60 +149,11 @@
               <h1>$1000</h1>
               <p class="oculto">id_Gasto</p>
             </div>
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>Comida</h1>
-              <h1>$1000</h1>
-              <h1>$1000</h1>
-              <p class="oculto">id_Gasto</p>
-            </div>
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>juegos</h1>
-              <h1>$500</h1>
-              <h1>$1500</h1>
-              <p class="oculto">id_Gasto</p>
-            </div>
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>juegos</h1>
-              <h1>$500</h1>
-              <h1>$1500</h1>
-              <p class="oculto">id_Gasto</p>
-            </div>
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>Dulces</h1>
-              <h1>$200</h1>
-              <h1>$1700</h1>
-              <p class="oculto">id_Gasto</p>
-            </div>
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>Dulces</h1>
-              <h1>$200</h1>
-              <h1>$1700</h1>
-              <p class="oculto">id_Gasto</p>
-            </div>
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>Dulces</h1>
-              <h1>$200</h1>
-              <h1>$1700</h1>
-              <p class="oculto">id_Gasto</p>
-            </div>
           </div>
         </div>
 
-        <!--  -->
-        <!--  -->
-
-        <div class="extra">
-          <img src="imagenes/Gato.png" alt="Gato">
-        </div>
-
-        <!--  -->
       </div>
+      <div class="extra"></div>
     </main>
     <script type="module" src="appFinanzas.js"></script>
   </body>
