@@ -242,6 +242,22 @@ function agregarTarea(){
     }
 }
 
+// delimita la fecha limite el dia actual
+function setMinDate() {
+    // Obtén la fecha y hora actual en la zona horaria local
+    const today = new Date();
+    
+    // Ajusta la fecha y hora a la zona horaria local
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
+
+    // Formatea la fecha como YYYY-MM-DD
+    const formattedDate = localDate.toISOString().split('T')[0];
+    
+    // Establece el valor mínimo del input de fecha
+    document.querySelector('.fecha').min = formattedDate;
+}
+setMinDate();
+
 //Funcionamiento del boton "Ingresar" para agregar una tarea
 botonIngresar.addEventListener("click", async function(){
     agregarTarea();
@@ -252,16 +268,4 @@ botonIngresar.addEventListener("click", async function(){
     }
     await new Promise(resolve => setTimeout(resolve, 1000));
     location.reload();
-});
-
-//Configura el dia actual como el minimo para ingresar una Tarea
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtén la fecha actual en la zona horaria local
-    const today = new Date();
-
-    // Formatea la fecha como YYYY-MM-DD
-    const formattedDate = today.toISOString().split('T')[0];
-
-    // Establece el valor mínimo del input de fecha
-    document.getElementById('fecha').min = formattedDate;
 });

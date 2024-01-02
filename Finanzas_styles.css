@@ -27,10 +27,10 @@
     justify-content: center;
     text-align: center;
     width: 90%;
+    margin: 0 0 20px 0;
 }
 
 .disponibilidad div {
-    padding: 5px;
     border: 2px solid #97ea6c;
     border-radius: 10%;
     background-color: #dff9ce;
@@ -77,19 +77,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 50vh;
+    height: 83.5vh;
     width: 49.8%;
     min-width: 785px;
     margin: 1.7px;
     background-color: rgba(255, 255, 255, 0.5);
-    border: 5px solid black;
+    border: 5px dashed black;
 }
 
 .Lista-Ingresos h1 {
     text-align: center;
     margin-bottom: 0px;
-    padding: 0;
+    padding: 10px;
 }
 
 #Contenedor-Ingresos{
@@ -122,6 +121,7 @@
 
 .Ingreso input.fecha {
     width: 20%;
+    margin-right: 3px;
 }
 
 .Ingreso p{
@@ -133,8 +133,8 @@
 }
 
 .Ingreso p.descripcion {
-    width: 350px;
-    min-width: 270px;
+    width: 325px;
+    min-width: 250px;
     margin-right: 3px;
     border: 1px solid black;
     background-color: white;
@@ -155,7 +155,6 @@
 }
 
 .Ingreso p.fecha {
-    /* width: 20%; */
     min-width: 120px;
     margin-right: 3px;
     border: 1px solid black;
@@ -188,8 +187,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 50vh;
+    height: 83.5vh;
     width: 49.8%;
     min-width: 785px;
     margin: 1.7px;
@@ -200,7 +198,7 @@
 .Lista-Gastos h1{
     text-align: center;
     margin-bottom: 0px;
-    padding: 0;
+    padding: 10px;
 }
 
 #Contenedor-Gastos {
@@ -236,13 +234,49 @@
     width: 20%;
 }
 
+.Gasto p {
+    text-align: center;
+    height: 40px;
+    font-size: 20px;
+    margin: 0;
+    padding: 3px;
+}
+
+.Gasto p.descripcion {
+    width: 350px;
+    min-width: 250px;
+    margin-right: 3px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.Gasto p.categoria {
+    min-width: 125px;
+    margin-right: 3px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.Gasto p.cantidad {
+    min-width: 125px;
+    margin-right: 3px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.Gasto p.fecha {
+    min-width: 125px;
+    margin-right: 3px;
+    border: 1px solid black;
+    background-color: white;
+}
+
     /* Seccion de Suscripciones */
 .Suscripciones {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 50vh;
+    height: 83.5vh;
     width: 49.8%;
     min-width: 785px;
     margin: 1.7px;
@@ -253,7 +287,7 @@
 .Suscripciones h1{
     text-align: center;
     margin-bottom: 0px;
-    padding: 0;
+    padding: 10px;
 }
 
 #Contenedor-Suscripciones {
@@ -314,8 +348,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 50vh;
+    height: 83.5vh;
     width: 49.8%;
     min-width: 785px;
     margin: 1.7px;
@@ -326,7 +359,7 @@
 .Gastos-Acumulados h1 {
     text-align: center;
     margin-bottom: 0px;
-    padding: 0;
+    padding: 10px;
 }
 
 .referencia {
@@ -379,7 +412,7 @@
     height: 20vh;
     width: 90%;
     padding: 25px;
-    margin: 2px;
+    margin: 20px 0 0 0;
     background-color: rgba(255, 255, 255, 0.5);
     border: 5px solid black;
 }

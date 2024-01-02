@@ -7,8 +7,9 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 // Crea una instancia del cliente Supabase
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Ingresos
 supabase
-  .from('Ingresos')  // Reemplaza 'Ingresos' con el nombre de tu tabla
+  .from('Ingresos')
   .select('id_ingreso,Descripción,Categoría,Cantidad,Fecha,Repeticion')
   .then(({ data, error }) => {
     if (error) {
@@ -19,7 +20,22 @@ supabase
             recuperarIngresos(row.id_ingreso, row.Descripción, row.Categoría, row.Cantidad, row.Fecha,row.Repeticion);
         });
     }
-  });
+});
+
+// Gastos
+supabase
+  .from('Gastos')
+  .select('id_Gasto,Descripción,Categoría,Cantidad,Fecha')
+  .then(({ data, error }) => {
+    if (error) {
+      console.error('Error al realizar la consulta:', error);
+    } else {
+        // const datos = ordenarTareas(data);
+        data.forEach(row => {
+            recuperarGastos(row.id_Gasto, row.Descripción, row.Categoría, row.Cantidad, row.Fecha);
+        });
+    }
+});
 
 // -------------------------------------------------------------------------------------------
 
@@ -32,7 +48,7 @@ let botonAgregarSuscripcion = document.querySelector('.Suscripciones .add');
 
 // funcion para ingresar los datos de un nuevo Ingreso
 function agregarIngreso(tuElemento){
-    let contenedorIngreso = document.getElementById('Contenedor-Ingresos');
+    let contenedorIngreso = document.getElementById(tuElemento);
 
     let contenedor = document.createElement('div');
     contenedor.classList.add('Ingreso');
@@ -95,11 +111,16 @@ function agregarIngreso(tuElemento){
     fecha.id = 'fecha';
     fecha.type = 'date';
     fecha.name = 'fecha';
-    fecha.min = setMinDate();
     contenedor.appendChild(fecha);
 
     BajarScroll(tuElemento);
 
+}
+
+// Si el usuario agrega un nuevo ingreso puede cancelarlo
+function cancelarIngreso(e){
+    let contenedor = e.target.parentNode;
+    contenedor.parentNode.removeChild(contenedor);
 }
 
 // funcion para mandar los datos de un nuevo ingreso a la BD
@@ -184,7 +205,7 @@ function recuperarIngresos(id_ingreso,Descripción,Categoría,Cantidad,Fecha,Rep
 
     let cantidad = document.createElement('p');
     cantidad.classList.add('cantidad');
-    cantidad.textContent = Cantidad;
+    cantidad.textContent = '$'+Cantidad;
     contenedor.appendChild(cantidad);
 
     let fecha = document.createElement('p');
@@ -203,6 +224,7 @@ function recuperarIngresos(id_ingreso,Descripción,Categoría,Cantidad,Fecha,Rep
 async function modificarIngreso(e){
     let contenedorIngreso = document.getElementById('Contenedor-Ingresos');
     let ingreso = e.target.parentNode;
+    let id = ingreso.children[0].innerText;
     let descripcion = ingreso.children[3].innerText;
     let categoria = ingreso.children[4].innerText;
     let cantidad = ingreso.children[5].innerText;
@@ -218,7 +240,7 @@ async function modificarIngreso(e){
     let butonCheck = document.createElement('button');
     butonCheck.classList.add('btn','btn-outline-success');
     butonCheck.addEventListener('click',function(event){
-        ConfirmarIngreso(event);
+        actualizarIngreso(event,id);
     })
     contenedor.appendChild(butonCheck);
 
@@ -252,7 +274,7 @@ async function modificarIngreso(e){
 
     let Nuevacantidad = document.createElement('input');
     Nuevacantidad.classList.add('cantidad');
-    Nuevacantidad.value = cantidad;
+    Nuevacantidad.value = cantidad.replace(/\$/g, '');;
     Nuevacantidad.placeholder = 'Cantidad';
     Nuevacantidad.type = 'number';
     Nuevacantidad.step = 'any';
@@ -265,26 +287,90 @@ async function modificarIngreso(e){
     Nuevafecha.id = 'fecha';
     Nuevafecha.type = 'date';
     Nuevafecha.name = 'fecha';
-    Nuevafecha.min = setMinDate();
     contenedor.appendChild(Nuevafecha);
+
+    let NuevaRepeticion = document.createElement('h1');
+    NuevaRepeticion.classList.add('repeticion');
+    NuevaRepeticion.textContent = repeticion;
+    contenedor.appendChild(NuevaRepeticion);
 
     let contenedorBotones = document.createElement('div');
     contenedorBotones.classList.add('más-menos');
     contenedor.appendChild(contenedorBotones);
 
-    // let botonMas = document.createElement('button');
-    // contenedorBotones.appendChild(botonMas);
+    let botonMas = document.createElement('button');
+    botonMas.addEventListener('click', function(event){
+        aumentaRepeticion(event);
+    });
+    contenedorBotones.appendChild(botonMas);
 
-    // let iconbotonMas = document.createElement('i');
-    // iconbotonMas.classList.add('bi', 'bi-caret-up');
-    // botonMas.appendChild(iconbotonMas);
+    let iconbotonMas = document.createElement('i');
+    iconbotonMas.classList.add('bi', 'bi-caret-up','no-click');
+    botonMas.appendChild(iconbotonMas);
 
-    // let botonMenos = document.createElement('button');
-    // contenedorBotones.appendChild(botonMenos);
+    let botonMenos = document.createElement('button');
+    botonMenos.addEventListener('click', function(event){
+        disminuyeRepeticion(event);
+    });
+    contenedorBotones.appendChild(botonMenos);
 
-    // let iconbotonMenos = document.createElement('i');
-    // iconbotonMenos.classList.add('bi', 'bi-caret-down');
-    // botonMenos.appendChild(iconbotonMenos);
+    let iconbotonMenos = document.createElement('i');
+    iconbotonMenos.classList.add('bi', 'bi-caret-down','no-click');
+    botonMenos.appendChild(iconbotonMenos);
+
+}
+
+// aumenta la casilla de repeticion del ingreso
+function aumentaRepeticion(e){
+    let contenedor = e.target.parentNode.parentNode;
+    let repeticion = parseInt(contenedor.children[5].textContent);
+    repeticion+=1;
+    contenedor.children[5].textContent = repeticion;
+}
+
+// disminuye la casilla de repeticion del ingreso, minimo 1
+function disminuyeRepeticion(e){
+    let contenedor = e.target.parentNode.parentNode;
+    let repeticion = parseInt(contenedor.children[5].textContent);
+    if(repeticion>1){
+        repeticion-=1;
+        contenedor.children[5].textContent = repeticion;
+    }
+}
+
+// Actualiza en la BD los datos del ingreso
+async function actualizarIngreso(e,id){
+    let contenedor = e.target.parentNode;
+    let descripcion = contenedor.children[1].value;
+    let categoria = contenedor.children[2].value;
+    let cantidad = parseFloat(contenedor.children[3].value);
+    let fecha = contenedor.children[4].value;
+    let repeticion = contenedor.children[5].textContent;
+
+    if(descripcion && categoria && !isNaN(cantidad) && (cantidad>0.0) && fecha && (repeticion>0)){
+        const ingresoActualizado = {
+            Descripción: descripcion,
+            Categoría: categoria,
+            Cantidad: cantidad,
+            Fecha: fecha,
+            Repeticion: repeticion
+        };
+
+        supabase
+        .from('Ingresos')
+        .update([ingresoActualizado])
+        .eq('id_ingreso', id)
+        .then(({ error }) => {                
+            if (error) {
+                alert('Error al agregar', error.message);
+            }
+        });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload();
+        
+    } else {
+        alert('Por favor ingresa correctamente los datos');
+    }
 
 }
 
@@ -307,27 +393,298 @@ async function borrarIngreso(e){
     location.reload();
 }
 
-function cancelarIngreso(e){
+// -------------------------------------------------------------------------------------------
+
+// funcion para ingresar los datos de un nuevo Gasto
+function AgregarGasto(tuElemento){
+    let contenedorIngreso = document.getElementById(tuElemento);
+
+    let contenedor = document.createElement('div');
+    contenedor.classList.add('Gasto');
+    contenedorIngreso.appendChild(contenedor);
+
+    let butonCheck = document.createElement('button');
+    butonCheck.classList.add('btn','btn-outline-success');
+    butonCheck.addEventListener('click',function(event){
+        ConfirmarGasto(event);
+    })
+    contenedor.appendChild(butonCheck);
+
+    let iconCheck = document.createElement('i');
+    iconCheck.classList.add('bi','bi-send-fill','no-click');
+    butonCheck.appendChild(iconCheck);
+
+    let butonLess = document.createElement('button');
+    butonLess.classList.add('btn','btn-outline-success','less');
+    butonLess.addEventListener('click', function(event){
+        cancelarGasto(event);
+    })
+    contenedor.appendChild(butonLess);
+
+    let iconLess = document.createElement('i');
+    iconLess.classList.add('bi','bi-dash-circle','no-click');
+    butonLess.appendChild(iconLess);
+
+    let descripcion = document.createElement('input');
+    descripcion.classList.add('descripcion');
+    descripcion.placeholder = 'Descripcion';
+    contenedor.appendChild(descripcion);
+
+    let categoria = document.createElement('select'); //agregar mas categorias
+    categoria.classList.add('categoria');
+    contenedor.appendChild(categoria);
+
+    let categoria_0 = document.createElement('option');
+    categoria_0.appendChild(document.createTextNode('Categoria'));
+    categoria_0.value="";
+    categoria_0.disabled=true;
+    categoria_0.selected=true;
+    categoria_0.hidden=true;
+    categoria.appendChild(categoria_0);
+
+    let categoria_1 = document.createElement('option');
+    categoria_1.appendChild(document.createTextNode('Comida'));
+    categoria_1.value="Comida";
+    categoria.appendChild(categoria_1);
+
+    let cantidad = document.createElement('input');
+    cantidad.classList.add('cantidad');
+    cantidad.placeholder = 'Cantidad';
+    cantidad.type = 'number';
+    cantidad.step = 'any';
+    cantidad.pattern = '[0-9,.]+';
+    contenedor.appendChild(cantidad);
+
+    var fecha = document.createElement('input');
+    fecha.classList.add('fecha');
+    fecha.id = 'fecha';
+    fecha.type = 'date';
+    fecha.name = 'fecha';
+    contenedor.appendChild(fecha);
+
+    BajarScroll(tuElemento);
+}
+
+// Si el usuario agrega un nuevo Gasto puede cancelarlo
+function cancelarGasto(e){
     let contenedor = e.target.parentNode;
     contenedor.parentNode.removeChild(contenedor);
 }
 
-// -------------------------------------------------------------------------------------------
+// funcion para mandar los datos de un nuevo ingreso a la BD
+async function ConfirmarGasto(e){
+    let contenedor = e.target.parentNode;
+    let descripcion = contenedor.children[2].value;
+    let categoria = contenedor.children[3].value;
+    let valor = parseFloat(contenedor.children[4].value);
+    let fecha = contenedor.children[5].value;
 
-// delimita la fecha limite el dia actual
-function setMinDate() {
-    // Obtén la fecha y hora actual en la zona horaria local
-    const today = new Date();
-    
-    // Ajusta la fecha y hora a la zona horaria local
-    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
+    if(descripcion && categoria && !isNaN(valor) && valor>0.0 && fecha){
+        const nuevoGasto = {
+            Descripción: descripcion,
+            Categoría: categoria,
+            Cantidad: valor,
+            Fecha: fecha,
+        };
 
-    // Formatea la fecha como YYYY-MM-DD
-    const formattedDate = localDate.toISOString().split('T')[0];
-
-    // Establece el valor mínimo del input de fecha
-    return formattedDate;
+        supabase
+        .from('Gastos')
+        .insert([nuevoGasto])
+        .then(({ error }) => {
+            contenedor.parentNode.removeChild(contenedor);
+                
+            if (error) {
+                alert('Error al agregar', error.message);
+            }
+        });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload();
+        
+    } else {
+        alert('Por favor ingresa correctamente los datos');
+    }
 }
+
+// Obtiene los gastos almacenados en la BD y los muestra
+function recuperarGastos(id_Gasto,Descripción,Categoría,Cantidad,Fecha){
+    let contenedorGasto = document.getElementById('Contenedor-Gastos');
+
+    let contenedor = document.createElement('div');
+    contenedor.classList.add('Gasto');
+    contenedorGasto.appendChild(contenedor);
+
+    let idGasto = document.createElement('p');
+    idGasto.classList.add('oculto');
+    idGasto.innerText = id_Gasto;
+    contenedor.appendChild(idGasto);
+
+    let butonModify = document.createElement('button');
+    butonModify.classList.add('btn','btn-outline-success','modify');
+    butonModify.addEventListener('click',function(event){
+        modificarGasto(event);
+    })
+    contenedor.appendChild(butonModify);
+
+    let iconModify = document.createElement('i');
+    iconModify.classList.add('bi','bi-pencil-square','no-click');
+    butonModify.appendChild(iconModify);
+
+    let butonLess = document.createElement('button');
+    butonLess.classList.add('btn','btn-outline-success','less');
+    butonLess.addEventListener('click', function(event){
+        borrarGasto(event);
+    })
+    contenedor.appendChild(butonLess);
+
+    let iconLess = document.createElement('i');
+    iconLess.classList.add('bi','bi-dash-circle','no-click');
+    butonLess.appendChild(iconLess);
+
+    let descripcion = document.createElement('p');
+    descripcion.classList.add('descripcion');
+    descripcion.textContent = Descripción;
+    contenedor.appendChild(descripcion);
+
+    let categoria = document.createElement('p');
+    categoria.classList.add('categoria');
+    categoria.textContent = Categoría;
+    contenedor.appendChild(categoria);
+
+    let cantidad = document.createElement('p');
+    cantidad.classList.add('cantidad');
+    cantidad.textContent = '$'+Cantidad;
+    contenedor.appendChild(cantidad);
+
+    let fecha = document.createElement('p');
+    fecha.classList.add('fecha');
+    fecha.textContent = Fecha;
+    contenedor.appendChild(fecha);
+}
+
+// Modifica valores de un Ingreso en la BD
+async function modificarGasto(e){
+    let contenedorGasto = document.getElementById('Contenedor-Gastos');
+    let gasto = e.target.parentNode;
+    let id = gasto.children[0].innerText;
+    let descripcion = gasto.children[3].innerText;
+    let categoria = gasto.children[4].innerText;
+    let cantidad = gasto.children[5].innerText;
+    let fecha = gasto.children[6].innerText;
+
+    gasto.parentNode.removeChild(gasto)
+
+    let contenedor = document.createElement('div');
+    contenedor.classList.add('Gasto');
+    contenedorGasto.appendChild(contenedor);
+
+    let butonCheck = document.createElement('button');
+    butonCheck.classList.add('btn','btn-outline-success');
+    butonCheck.addEventListener('click',function(event){
+        actualizarGasto(event,id);
+    })
+    contenedor.appendChild(butonCheck);
+
+    let iconCheck = document.createElement('i');
+    iconCheck.classList.add('bi','bi-send-fill','no-click');
+    butonCheck.appendChild(iconCheck);
+
+    let Nuevadescripcion = document.createElement('input');
+    Nuevadescripcion.classList.add('descripcion');
+    Nuevadescripcion.placeholder = 'Descripcion';
+    Nuevadescripcion.value = descripcion;
+    contenedor.appendChild(Nuevadescripcion);
+
+    let Nuevacategoria = document.createElement('select');
+    Nuevacategoria.classList.add('categoria');
+    Nuevacategoria.value = categoria.innerText;
+    contenedor.appendChild(Nuevacategoria);
+
+    let categoria_0 = document.createElement('option');
+    categoria_0.appendChild(document.createTextNode(categoria));
+    categoria_0.value= categoria;
+    categoria_0.disabled=true;
+    categoria_0.selected=true;
+    categoria_0.hidden=true;
+    Nuevacategoria.appendChild(categoria_0);
+
+    let categoria_1 = document.createElement('option');
+    categoria_1.appendChild(document.createTextNode('Comida'));
+    categoria_1.value="Comida";
+    Nuevacategoria.appendChild(categoria_1);
+
+    let Nuevacantidad = document.createElement('input');
+    Nuevacantidad.classList.add('cantidad');
+    Nuevacantidad.value = cantidad.replace(/\$/g, '');;
+    Nuevacantidad.placeholder = 'Cantidad';
+    Nuevacantidad.type = 'number';
+    Nuevacantidad.step = 'any';
+    Nuevacantidad.pattern = '[0-9,.]+';
+    contenedor.appendChild(Nuevacantidad);
+
+    var Nuevafecha = document.createElement('input');
+    Nuevafecha.classList.add('fecha');
+    Nuevafecha.value = fecha;
+    Nuevafecha.id = 'fecha';
+    Nuevafecha.type = 'date';
+    Nuevafecha.name = 'fecha';
+    contenedor.appendChild(Nuevafecha);
+
+}
+
+// Actualiza en la BD los datos del gasto
+async function actualizarGasto(e,id){
+    let contenedor = e.target.parentNode;
+    let descripcion = contenedor.children[1].value;
+    let categoria = contenedor.children[2].value;
+    let cantidad = parseFloat(contenedor.children[3].value);
+    let fecha = contenedor.children[4].value;
+
+    if(descripcion && categoria && !isNaN(cantidad) && (cantidad>0.0) && fecha){
+        const GastoActualizado = {
+            Descripción: descripcion,
+            Categoría: categoria,
+            Cantidad: cantidad,
+            Fecha: fecha,
+        };
+
+        supabase
+        .from('Gastos')
+        .update([GastoActualizado])
+        .eq('id_Gasto', id)
+        .then(({ error }) => {                
+            if (error) {
+                alert('Error al agregar', error.message);
+            }
+        });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload();
+        
+    } else {
+        alert('Por favor ingresa correctamente los datos');
+    }
+
+}
+
+// Elimina un Gasto de la BD
+async function borrarGasto(e){
+    let ingreso = e.target.parentNode;
+    let id = ingreso.children[0].textContent;
+
+    supabase
+    .from('Gastos')
+    .delete()
+    .eq('id_Gasto', id)
+    .then(({ error }) => {                
+            if (error) {
+                alert('Error al eliminar', error.message);
+            }
+        });
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload();
+} 
+
+// -------------------------------------------------------------------------------------------
 
 // Baja el scroll en el contenedor indicado
 function BajarScroll(tuElemento) {
@@ -339,6 +696,10 @@ function BajarScroll(tuElemento) {
 // -------------------------------------------------------------------------------------------
 
 // Eventos de botones
-botonAgregarIngreso.addEventListener('click', async function(){
+botonAgregarIngreso.addEventListener('click', function(){
     agregarIngreso('Contenedor-Ingresos');
+});
+
+botonAgregarGasto.addEventListener('click', function(){
+    AgregarGasto('Contenedor-Gastos');
 });
