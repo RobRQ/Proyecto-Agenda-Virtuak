@@ -31,8 +31,8 @@
 }
 
 .disponibilidad div {
-    border: 2px solid #97ea6c;
     border-radius: 10%;
+    border: 2px solid #97ea6c;
     background-color: #dff9ce;
 }
 
@@ -82,7 +82,7 @@
     min-width: 785px;
     margin: 1.7px;
     background-color: rgba(255, 255, 255, 0.5);
-    border: 5px dashed black;
+    border: 5px solid black;
 }
 
 .Lista-Ingresos h1 {
@@ -100,86 +100,84 @@
     display: flex;
     width: 100%;
     margin-bottom: 4px;
-    padding: 5px;
+    border: 3px solid black;
+    background-color: white;
 }
 
 .Ingreso input.descripcion {
     width: 40%;
-    margin-right: 3px;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Ingreso select.categoria {
     width: 20%;
-    margin-right: 3px;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Ingreso input.cantidad {
     text-align: center;
     width: 15%;
-    margin-right: 3px;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Ingreso input.fecha {
     width: 20%;
-    margin-right: 3px;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Ingreso p{
     text-align: center;
-    height: 40px;
     font-size: 20px;
+    height: auto;
     margin: 0;
     padding: 3px;
 }
 
 .Ingreso p.descripcion {
-    width: 325px;
-    min-width: 250px;
-    margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    width: 100%;
+    min-width: 205px;
+    border-width: 0 3px 0 3px;
+    border-style: solid;
+    border-color: black;
 }
 
 .Ingreso p.categoria {
     min-width: 100px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
+    
 }
 
 .Ingreso p.cantidad {
     min-width: 100px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
+    
 }
 
 .Ingreso p.fecha {
     min-width: 120px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
 }
 
-.Ingreso h1 {
-    text-align: center;
-    height: 40px;
-    min-width: 50px;
-    padding: 3px;
-    margin: 0;
+.Ingreso i.tipo{
     font-size: 25px;
-    margin-right: 2px;
-    border: 1px solid black;
-    background-color: white;
-}
-
-.Ingreso div.más-menos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    cursor: pointer;
-    min-width: 20px;
-    font-size: 11.7px;
+    margin-right: 3px;
 }
 
     /* Seccion de Gastos */
@@ -208,67 +206,85 @@
 
 .Gasto {
     display: flex;
-    height: 50px;
     width: 100%;
     margin-bottom: 4px;
-    padding: 5px;
+    border: 3px solid black;
+    background-color: white;
 }
 
 .Gasto input.descripcion {
     width: 35%;
-    margin-right: 3px;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Gasto select.categoria {
     width: 20%;
-    margin-right: 3px;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Gasto input.cantidad {
     text-align: center;
     width: 15%;
-    margin-right: 3px;;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Gasto input.fecha {
     width: 20%;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Gasto p {
     text-align: center;
-    height: 40px;
+    height: auto;
     font-size: 20px;
     margin: 0;
     padding: 3px;
 }
 
 .Gasto p.descripcion {
-    width: 350px;
-    min-width: 250px;
+    width: 100%;
+    min-width: 205px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 3px;
+    border-style: solid;
+    border-color: black;
 }
 
 .Gasto p.categoria {
     min-width: 125px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
 }
 
 .Gasto p.cantidad {
     min-width: 125px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
 }
 
 .Gasto p.fecha {
     min-width: 125px;
     margin-right: 3px;
-    border: 1px solid black;
-    background-color: white;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
+}
+
+.Gasto i.tipo {
+    font-size: 25px;
+    margin-right: 3px;
 }
 
     /* Seccion de Suscripciones */
@@ -297,31 +313,48 @@
 
 .Suscripcion {
     display: flex;
-    height: 50px;
     width: 100%;
     margin-bottom: 4px;
-    padding: 5px;
+    border: 3px solid black;
+    background-color: white;
 }
 
 .Suscripcion input.descripcion {
-    width: 40%;
-    margin-right: 3px;
+    width: 36%;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Suscripcion select.categoria {
-    width: 20%;
-    margin-right: 3px;
+    width: 16%;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Suscripcion input.cantidad {
     text-align: center;
-    width: 15%;
-    margin-right: 3px;
+    width: 16%;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
-.Suscripcion input.periodo {
+.Suscripcion select.periodo {
     text-align: center;
+    font-size: 14px;
     width: 15%;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
+}
+
+.Suscripcion input.fecha {
+    width: 20%;
+    margin: 3px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
 .Suscripcion h1 {
@@ -341,6 +374,54 @@
     margin: 0;
     padding: 0;
     font-size: 11px;
+}
+
+.Suscripcion p {
+    text-align: center;
+    height: auto;
+    font-size: 20px;
+    margin: 0;
+    padding: 5px;
+}
+
+.Suscripcion p.descripcion {
+    width: 100%;
+    margin-right: 3px;
+    border-width: 0 3px 0 3px;
+    border-style: solid;
+    border-color: black;
+}
+
+.Suscripcion p.categoria {
+    min-width: 150px;
+    margin-right: 3px;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
+}
+
+.Suscripcion p.cantidad {
+    min-width: 90px;
+    margin-right: 3px;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
+}
+
+.Suscripcion p.periodo {
+    min-width: 120px;
+    margin-right: 3px;
+    border-width: 0 3px 0 0;
+    border-style: solid;
+    border-color: black;
+}
+
+.Suscripcion h1 {
+    text-align: center;
+    min-width: 50px;
+    padding: 3px;
+    font-size: 25px;
+    margin-right: 2px;
 }
 
     /* Seccion de Gastos Acumulados */
@@ -369,7 +450,8 @@
     align-items: center;
     width: 90%;
     margin-top: 3px;
-    border: 1px solid black;
+    border: 2px solid #97ea6c;
+    background-color: #dff9ce;
 }
 
 .referencia p {
@@ -379,7 +461,6 @@
     padding: 0;
     font-size: 20px;
     font-weight: bold;
-    background-color: rgba(128, 128, 128, 0.5);
 }
 
 #Contenedor-GastoAC {
@@ -433,23 +514,8 @@
     width: 40px;
     border-radius: 50%;
     color: black;
-    border: black;
-}
-
-.less {
-    min-height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    color: black;
-    border: black;
-}
-
-.modify {
-    min-height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    color: black;
-    border: black;
+    border: 2px solid #97ea6c;
+    background-color: #dff9ce;
 }
 
     /* ocultar información */

@@ -13,7 +13,7 @@ supabase
   .select('id, fecha_creacion, prioridad, descripcion, fecha, estado')
   .then(({ data }) => {
     const datos = ordenarTareas(data);
-    datos.forEach(row => {
+    datos.forEach(row => {+
         recuperarTareas(row.id, row.prioridad, row.descripcion, row.fecha, row.estado);
     });
 });
@@ -41,10 +41,40 @@ function ordenarTareas(data) {
   return data;
 }
 
+//Verifica que una tarea cuenta con toda la información necesaria para ingresarla, si cuenta con la información ingresa la tarea en la tabla 'Tareas' de la BD
+async function agregarTarea(){
+    if(inputPrioridad.value && inputDescripcion.value && inputFecha.value){
+        const nuevaTareaData = {
+            prioridad: inputPrioridad.value,
+            descripcion: inputDescripcion.value,
+            fecha: inputFecha.value,
+            estado: 'pendiente'
+        };
+        
+        supabase
+            .from('Tareas')
+            .insert([nuevaTareaData])
+            .then(({ error }) => {
+                inputPrioridad.value = '';
+                inputDescripcion.value = '';
+                inputFecha.value = '';
+                if (error) {
+                    // alert('Error al desmarcar ', error);
+                }
+            });
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        location.reload();
+
+    } else {
+        alert('Por favor ingresa todos los datos');
+    }
+}
+
 // Funcion para mostrar las tareas almacenados en la BD
 function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
         let nuevaTarea = document.createElement('div');
         nuevaTarea.id = 'Tarea';
+        contenedorTareas.appendChild(nuevaTarea);
 
         let datosNuevaTarea = document.createElement('div');
         datosNuevaTarea.classList.add('Datos');
@@ -56,7 +86,7 @@ function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
         datosNuevaTarea.appendChild(id);
 
         let botonModificar = document.createElement('button');
-        botonModificar.classList.add('boton-modificar');
+        botonModificar.classList.add('btn','btn-outline-primary');
         botonModificar.addEventListener("click", function(event){
             if(this.children[0].classList.contains('bi-pencil-square')){
                 modificarTarea(event);
@@ -64,11 +94,12 @@ function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
                 confirmarModificacionTarea(event,idBD);
             }
         });
-        datosNuevaTarea.appendChild(botonModificar);
         
         let iconModificar = document.createElement('i');
-        iconModificar.classList.add('bi','bi-pencil-square');
+        iconModificar.classList.add('bi','bi-pencil-square', 'no-click');
         botonModificar.appendChild(iconModificar);
+
+        datosNuevaTarea.appendChild(botonModificar);
 
         let prioridad = document.createElement('p');
         prioridad.classList.add('casilla-prioridad');
@@ -108,7 +139,6 @@ function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
             location.reload();
         });
         nuevaTarea.appendChild(nuevoBotonEliminar);
-        contenedorTareas.appendChild(nuevaTarea);
 
         if(estadoBD == 'completado'){
             marcarTarea(idBD,nuevoBotonCompletar,prioridad,descripcion,fecha);
@@ -117,7 +147,7 @@ function recuperarTareas(idBD,prioridadBD,descripcionBD,fechaBD,estadoBD){
         }
 }
 
-// Funcion que marca una tarea como completada
+// // Funcion que marca una tarea como completada
 function marcarTarea(idBD,boton,prioridad,descripcion,fecha){
     prioridad.classList.add('completada');
     descripcion.classList.add('completada');
@@ -129,12 +159,12 @@ function marcarTarea(idBD,boton,prioridad,descripcion,fecha){
         .eq('id', idBD)
         .then(({ error }) => {
             if (error) {
-                alert('Error al marcar ', error);
+                // alert('Error al marcar ', error);
             }
         });
 }
 
-// Funcion que marca una tarea como pendiente
+// // Funcion que marca una tarea como pendiente
 function desmarcarTarea(idBD,boton,prioridad,descripcion,fecha){
     prioridad.classList.remove('completada');
     descripcion.classList.remove('completada');
@@ -146,33 +176,32 @@ function desmarcarTarea(idBD,boton,prioridad,descripcion,fecha){
         .eq('id', idBD)
         .then(({ error }) => {
             if (error) {
-                alert('Error al desmarcar ', error);
+                // alert('Error al desmarcar ', error);
             }
         });
 }
 
-// Funcion para modificar los elementos de una Tarea
+// // Funcion para modificar los elementos de una Tarea
 function modificarTarea(e){
-    let contenedor = e.target.parentNode.parentNode;
+    let contenedor = e.target.parentNode;
     let boton = contenedor.children[1];
     boton.children[0].classList.remove('bi-pencil-square');
     boton.children[0].classList.add('bi-check-lg');
-    console.log(boton.children[0]);
     let viejaPrioridad = contenedor.children[2];
     let viejaDescripcion = contenedor.children[3];
     let viejaFecha = contenedor.children[4];
 
-    let tmp = document.getElementById('ingresar-tarea');
+    let NuevaTarea = document.getElementById('ingresar-tarea');
 
-    let casillaPrioridad = tmp.childNodes[1].cloneNode(true);
+    let casillaPrioridad = NuevaTarea.childNodes[1].cloneNode(true);
     casillaPrioridad.classList.add('modificar')
     casillaPrioridad.value= viejaPrioridad.textContent;
 
-    let casillaDescripcion = tmp.childNodes[3].cloneNode(true);
+    let casillaDescripcion = NuevaTarea.childNodes[3].cloneNode(true);
     casillaDescripcion.classList.add('modificar')
     casillaDescripcion.value= viejaDescripcion.textContent;
 
-    let casillaFecha = tmp.childNodes[5].cloneNode(true);
+    let casillaFecha = NuevaTarea.childNodes[5].cloneNode(true);
     casillaFecha.classList.add('modificar')
     casillaFecha.value= viejaFecha.textContent;
 
@@ -181,9 +210,9 @@ function modificarTarea(e){
     viejaFecha.replaceWith(casillaFecha);
 }
 
-// Funcion que actualiza los datos de una tarea en la BD
-function confirmarModificacionTarea(e,idBD){
-    let contenedor = e.target.parentNode.parentNode;
+// // Funcion que actualiza los datos de una tarea en la BD
+async function confirmarModificacionTarea(e,idBD){
+    let contenedor = e.target.parentNode;
     let boton = contenedor.children[1];
     boton.children[0].classList.remove('bi-check-lg');
     boton.children[0].classList.add('bi-pencil-square');
@@ -198,14 +227,15 @@ function confirmarModificacionTarea(e,idBD){
     .eq('id', idBD)
     .then(({ error }) => {
         if (error) {
-        console.log('Error al actualizar tarea: ', error.message);
+                // alert('Error al desmarcar ', error);
         }
     });
 
+    await new Promise(resolve => setTimeout(resolve, 1000));
     location.reload();
 }
 
-//Realiza un Delete de la tarea seleccionada en la tabla 'Tareas' mediante su id
+// //Realiza un Delete de la tarea seleccionada en la tabla 'Tareas' mediante su id
 function eliminarTarea(idBD){
     supabase
         .from('Tareas')
@@ -213,33 +243,9 @@ function eliminarTarea(idBD){
         .eq('id', idBD)
         .then(({ error }) => {
             if (error) {
-                alert('Error al eliminar tarea ', error);
+                // alert('Error al eliminar tarea ', error);
             }
         });
-}
-
-//Verifica que una tarea cuenta con toda la información necesaria para ingresarla, si cuenta con la información ingresa la tarea en la tabla 'Tareas' de la BD
-function agregarTarea(){
-    if(inputPrioridad.value && inputDescripcion.value && inputFecha.value){
-        
-        const nuevaTareaData = {
-            prioridad: inputPrioridad.value,
-            descripcion: inputDescripcion.value,
-            fecha: inputFecha.value,
-            estado: 'pendiente'
-        };
-        
-        supabase
-            .from('Tareas')
-            .insert([nuevaTareaData])
-            .then(({ error }) => {
-                if (error) {
-                    alert('Error al agregar tarea ', error);
-                }
-            });
-    } else {
-        alert('Por favor ingresa todos los datos');
-    }
 }
 
 // delimita la fecha limite el dia actual
@@ -259,13 +265,4 @@ function setMinDate() {
 setMinDate();
 
 //Funcionamiento del boton "Ingresar" para agregar una tarea
-botonIngresar.addEventListener("click", async function(){
-    agregarTarea();
-    if(inputPrioridad.value && inputDescripcion.value && inputFecha.value){
-        inputPrioridad.value = '';
-        inputDescripcion.value = '';
-        inputFecha.value = '';
-    }
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    location.reload();
-});
+botonIngresar.addEventListener("click",agregarTarea);
