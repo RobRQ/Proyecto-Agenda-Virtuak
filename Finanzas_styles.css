@@ -19,6 +19,22 @@
     width: 90%;
 }
 
+        /* Encabezados de cada Seccion */
+.Encabezado {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.Encabezado h1 {
+    width: 94%;
+}
+
+.Encabezado i {
+    font-size: 25px;
+    width: 6%;
+}
+
     /* Seccion de ingresos disponibles */
 .disponibilidad {
     display: flex;
@@ -485,17 +501,47 @@
     font-size: 25px;
 }
 
-    /* Seccion de Extra */
-.extra {
+    /* Seccion de Categorias */
+.Agregar_Categorias {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 20vh;
     width: 90%;
-    padding: 25px;
-    margin: 20px 0 0 0;
     background-color: rgba(255, 255, 255, 0.5);
     border: 5px solid black;
+}
+
+.Agregar_Categorias h1{
+    padding: 0;
+    margin: 0;
+}
+
+.contenedorNuevasCategorias {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 55%;
+}
+
+.nuevaCategoria {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px 5px 0 5px;
+}
+
+.nuevaCategoria h3 {
+    text-align: center;
+    margin: 0;
+}
+
+.nuevaCategoria input {
+    text-align: center;
+    width: 175px;
+    margin-bottom: 5px;
+    border: 1px solid #0f4d19;
+    background-color: #bdecb6;
 }
 
     /* Botones */

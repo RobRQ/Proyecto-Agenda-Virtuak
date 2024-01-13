@@ -47,9 +47,16 @@
           <h2>$0</h2>
         </div>
       </div>
+
       <div id="Contenedor-principal">
         <div class="Lista-Ingresos">
-          <h1>Mis Ingresos</h1>
+          <div class="Encabezado">
+            <h1>Mis Ingresos</h1>
+            <i
+              title="Para cambios entre Banco y Efectivo se debe agregar el gasto correspondiente"
+              class="bi bi-question-circle"
+            ></i>
+          </div>
           <div id="Contenedor-Ingresos"></div>
           <div>
             <button type="button" class="btn btn-outline-success add">
@@ -59,7 +66,13 @@
         </div>
 
         <div class="Lista-Gastos">
-          <h1>Mis Gastos</h1>
+          <div class="Encabezado">
+            <h1>Mis Gastos</h1>
+            <i
+              title="Las Categorias Deposito y Retiro no se contaran en los Gastos por Categoria"
+              class="bi bi-question-circle"
+            ></i>
+          </div>
           <div id="Contenedor-Gastos"></div>
           <div>
             <button type="button" class="btn btn-outline-success add">
@@ -69,7 +82,13 @@
         </div>
 
         <div class="Suscripciones">
-          <h1>Suscripciones</h1>
+          <div class="Encabezado">
+            <h1>Suscripciones</h1>
+            <i
+              title="El total de Suscripciones mensuales se descontaran del dinero Total"
+              class="bi bi-question-circle"
+            ></i>
+          </div>
           <div id="Contenedor-Suscripciones"></div>
           <div>
             <button type="button" class="btn btn-outline-success add">
@@ -85,18 +104,78 @@
             <p>Total de Gastos</p>
             <p>Gasto Acumulado</p>
           </div>
-          <div id="Contenedor-GastoAC">
-            <div class="GastoAC">
-              <p class="oculto">id_GastoAcum</p>
-              <h1>Comida</h1>
-              <h1>$1000</h1>
-              <h1>$1000</h1>
-              <p class="oculto">id_Gasto</p>
+          <div id="Contenedor-GastoAC"></div>
+        </div>
+      </div>
+
+      <div class="Agregar_Categorias">
+        <h1>Agregar/Quitar Categorias</h1>
+        <div class="contenedorNuevasCategorias">
+          <div class="nuevaCategoria">
+            <h3>Ingreso</h3>
+            <input placeholder="Categoria" />
+            <div>
+              <button type="button" class="btn btn-success categoriaIngreso">
+                Agregar
+              </button>
+              <button
+                type="button"
+                class="btn btn-success eliminarCategoriaIngreso"
+              >
+                Quitar
+              </button>
+            </div>
+          </div>
+          <div class="nuevaCategoria">
+            <h3>Gasto</h3>
+            <input placeholder="Categoria" />
+            <div>
+              <button type="button" class="btn btn-success categoriaGasto">
+                Agregar
+              </button>
+              <button
+                type="button"
+                class="btn btn-success eliminarCategoriaGasto"
+              >
+                Quitar
+              </button>
+            </div>
+          </div>
+          <div class="nuevaCategoria">
+            <h3>Suscripcion</h3>
+            <input placeholder="Categoria" />
+            <div>
+              <button
+                type="button"
+                class="btn btn-success categoriaSuscripcion"
+              >
+                Agregar
+              </button>
+              <button
+                type="button"
+                class="btn btn-success eliminarCategoriaSuscripcion"
+              >
+                Quitar
+              </button>
+            </div>
+          </div>
+          <div class="nuevaCategoria">
+            <h3>Periodo</h3>
+            <input placeholder="Categoria" />
+            <div>
+              <button type="button" class="btn btn-success categoriaPeriodo">
+                Agregar
+              </button>
+              <button
+                type="button"
+                class="btn btn-success eliminarCategoriaPeriodo"
+              >
+                Quitar
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="extra"></div>
     </main>
     <script type="module" src="appFinanzas.js"></script>
   </body>

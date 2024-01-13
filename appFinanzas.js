@@ -51,13 +51,20 @@ supabase
     }
 });
 
-
 // -----------------------------------------------------------------------------------
 
 // Asignacion de elementos HTML
 let botonAgregarIngreso = document.querySelector('.Lista-Ingresos .add');
 let botonAgregarGasto = document.querySelector('.Lista-Gastos .add');
 let botonAgregarSuscripcion = document.querySelector('.Suscripciones .add');
+let agregarCategoriaIngreso = document.querySelector('.categoriaIngreso');
+let agregarCategoriaGasto = document.querySelector('.categoriaGasto');
+let agregarCategoriaSuscripcion = document.querySelector('.categoriaSuscripcion');
+let agregarCategoriaPeriodo = document.querySelector('.categoriaPeriodo');
+let quitarCategoriaIngreso = document.querySelector('.eliminarCategoriaIngreso');
+let quitarCategoriaGasto = document.querySelector('.eliminarCategoriaGasto');
+let quitarCategoriaSuscripcion = document.querySelector('.eliminarCategoriaSuscripcion');
+let quitarCategoriaPeriodo = document.querySelector('.eliminarCategoriaPeriodo');
 
 // -----------------------------------------------------------------------------------
 
@@ -403,6 +410,7 @@ async function borrarIngreso(e){
     location.reload();
 }
 
+// Muestra los datos en el apartado de disponibilidad
 async function reflejarIngresos() {
     let cantidadEfectivo = 0;
     let cantidadBanco = 0;
@@ -762,6 +770,7 @@ async function borrarGasto(e){
     location.reload();
 }
 
+// Muestra los datos en el apartado de disponibilidad
 async function reflejarGastos(ingresoEfectivo,ingresoBanco) {
     let Efectivo = document.querySelector('.efectivo');
     let Banco = document.querySelector('.banco');
@@ -1109,6 +1118,7 @@ async function borrarSuscripcion(e){
     location.reload();
 }
 
+// Muestra los datos en el apartado de disponibilidad
 async function reflejarSuscripciones(cantidadBanco) {
     let Banco = document.querySelector('.banco');
     let cantidad = parseFloat(Banco.children[1].innerText.replace(/\$/g, ''));
@@ -1130,6 +1140,7 @@ async function reflejarSuscripciones(cantidadBanco) {
     return cantidadBanco-cantidad
 }
 
+// Calcula la cantidad destinanada al pago de suscripciones al mes
 async function SuscripcionesMes() {
     let cantidad = 0;
 
@@ -1143,6 +1154,57 @@ async function SuscripcionesMes() {
         } 
     });
     return cantidad;
+}
+
+// -----------------------------------------------------------------------------------
+
+//añade categorias a las seciones de ingresos, gastos y suscripciones
+async function crearCategoria(e,Seccion){
+    let input = e.parentNode.parentNode.querySelector('input');
+
+    if(input.value){
+        const Nuevacategoria = {
+            seccion: Seccion,
+            categoria: input.value
+        };
+
+        supabase
+        .from('Categorias')
+        .insert([Nuevacategoria])
+        .then(({ error }) => {
+            if (error) {
+                alert('Error al agregar', error.message);
+            }
+        });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload();
+
+    } else {
+        alert('Por favor ingresa correctamente los datos');
+    }
+}
+
+async function quitarCategoria(e,Seccion){
+    let input = e.parentNode.parentNode.querySelector('input');
+
+    if(input.value){
+
+       supabase
+       .from('Categorias')
+       .delete()
+       .eq('seccion', Seccion)
+       .eq('categoria', input.value)
+       .then(({ error }) => {                
+                if (error) {
+                    alert('Error al eliminar', error.message);
+                }
+            });
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    location.reload();
+
+    } else {
+        alert('Por favor ingresa correctamente los datos');
+    }
 }
 
 // -----------------------------------------------------------------------------------
@@ -1180,6 +1242,7 @@ function BajarScroll(tuElemento) {
   elementoScroll.scrollTop = elementoScroll.scrollHeight;
 }
 
+// Calcula cuantos años han pasado desde una fecha inicial
 function calcularDistanciaAnos(fechaInicio) {
     const inicio = new Date(fechaInicio);
     const fin = new Date(); // Si no se proporciona fechaFin, utiliza la fecha actual
@@ -1189,6 +1252,7 @@ function calcularDistanciaAnos(fechaInicio) {
     return diferenciaAnios;
 }
 
+// Calcula cuantos meses han pasado desde una fecha inicial
 function calcularDistanciaMeses(fechaInicio) {
     const inicio = new Date(fechaInicio);
     const fin =  new Date(); // Si no se proporciona fechaFin, utiliza la fecha actual
@@ -1201,6 +1265,7 @@ function calcularDistanciaMeses(fechaInicio) {
     return distanciaMeses;
 }
 
+// Calcula cuantas semanas han pasado desde una fecha inicial
 function calcularDistanciaSemanas(fechaInicio) {
     const inicio = new Date(fechaInicio);
     const fin = new Date(); // Si no se proporciona fechaFin, utiliza la fecha actual
@@ -1213,6 +1278,7 @@ function calcularDistanciaSemanas(fechaInicio) {
     return distanciaSemanas;
 }
 
+// Calcula los datos de la seccion de disponibilidad
 function reflejaDineroDisponible() {
     let Efectivo = document.querySelector('.efectivo');
     let Banco = document.querySelector('.banco');
@@ -1239,6 +1305,76 @@ function reflejaDineroDisponible() {
 
 // -----------------------------------------------------------------------------------
 
+// Crea un contenedor HTML de Gasto Acumulado
+async function crearGastoAcumulado(Categoria){
+    let contenedor = document.getElementById('Contenedor-GastoAC');
+
+    let GastoAC = document.createElement('div');
+    GastoAC.classList.add('GastoAC');
+    contenedor.appendChild(GastoAC);
+
+    let categoria = document.createElement('h1');
+    categoria.innerText = Categoria;
+    GastoAC.appendChild(categoria);
+
+    let total = document.createElement('h1');
+    total.innerText = '0';
+    GastoAC.appendChild(total);
+
+    let acumulado = document.createElement('h1');
+    acumulado.innerText = '0';
+    GastoAC.appendChild(acumulado);
+
+}
+
+// Ingresa las Categorias que existen para Gastos
+// Nota: La categoria Deposito/Retiro no se toma en cuenta ya que no es un gasto
+async function CategoriaGastosAcumulados(){
+    const { data } = await supabase.from('Categorias').select('seccion,categoria');
+
+    if (data) {
+        for (const row of data) {
+            if (row.seccion === 'Gasto' && row.categoria != 'Deposito' && row.categoria != 'Retiro') {
+                await crearGastoAcumulado(row.categoria);
+            }
+        }
+    }
+}
+
+// Ingresa el total de gastos en cada categoria
+async function totalGastosAcumulados(){
+    await CategoriaGastosAcumulados();
+    let contenedor = document.getElementById('Contenedor-GastoAC');
+    
+    for (const hijo of contenedor.childNodes) {
+        const { data } = await supabase.from('Gastos').select('Categoría,Cantidad');
+        for (const row of data){
+             if(row.Categoría === hijo.children[0].innerText){
+                hijo.children[1].innerText = parseFloat(hijo.children[1].innerText)+row.Cantidad;
+             }
+        }
+    }
+
+}
+
+// va sumando el gasto total sumando los gastos de las categorias
+async function GastosAcumulados(){
+    await totalGastosAcumulados();
+    let contenedor = document.getElementById('Contenedor-GastoAC');
+
+    for (const hijo of contenedor.childNodes){
+        if(hijo === contenedor.childNodes[0]){
+            hijo.children[2].innerText = hijo.children[1].innerText;
+        } else{
+            let total = parseFloat(hijo.children[1].innerText);
+            let anterior = parseFloat(hijo.previousElementSibling.children[2].innerText);
+            hijo.children[2].innerText = total+anterior;
+        }
+    }
+} GastosAcumulados()
+
+// -----------------------------------------------------------------------------------
+
 // Eventos de botones
 botonAgregarIngreso.addEventListener('click', function(){
     agregarIngreso('Contenedor-Ingresos');
@@ -1250,4 +1386,36 @@ botonAgregarGasto.addEventListener('click', function(){
 
 botonAgregarSuscripcion.addEventListener('click', function(){
     AgregarSuscripcion('Contenedor-Suscripciones');
+});
+
+agregarCategoriaIngreso.addEventListener('click', function(event){
+    crearCategoria(this,'Ingreso');
+});
+
+agregarCategoriaGasto.addEventListener('click', function(event){
+    crearCategoria(this,'Gasto');
+});
+
+agregarCategoriaSuscripcion.addEventListener('click', function(event){
+    crearCategoria(this,'Suscripcion-Categoria');
+});
+
+agregarCategoriaPeriodo.addEventListener('click', function(event){
+    crearCategoria(this,'Suscripcion-Periodo');
+});
+
+quitarCategoriaIngreso.addEventListener('click', function(event){
+    quitarCategoria(this,'Ingreso');
+});
+
+quitarCategoriaGasto.addEventListener('click', function(event){
+    quitarCategoria(this,'Gasto');
+});
+
+quitarCategoriaSuscripcion.addEventListener('click', function(event){
+    quitarCategoria(this,'Suscripcion-Categoria');
+});
+
+quitarCategoriaPeriodo.addEventListener('click', function(event){
+    quitarCategoria(this,'Suscripcion-Periodo');
 });
